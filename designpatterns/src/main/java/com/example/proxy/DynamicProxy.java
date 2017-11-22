@@ -2,6 +2,7 @@ package com.example.proxy;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 
 /**
  * Created by Administrator on 2017/11/13.
@@ -28,11 +29,18 @@ public class DynamicProxy implements InvocationHandler {
         /*
          * before ：doSomething();
          */
+        System.out.println(DynamicProxy.class + " proxy [" + obj.getClass().getSimpleName() + "] de [" + method.getName() + "]method");
         Object result = method.invoke(this.obj, args);
 
         /*
          * after : doSomething();
          */
         return result;
+    }
+
+
+    public static Object newProxyInstance(Object object) {
+        return Proxy.newProxyInstance(object.getClass().getClassLoader(),
+                object.getClass().getInterfaces(), new DynamicProxy(object));
     }
 }
