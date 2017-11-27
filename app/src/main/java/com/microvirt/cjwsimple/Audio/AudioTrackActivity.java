@@ -1,17 +1,15 @@
-package com.microvirt.cjwsimple.asop;
+package com.microvirt.cjwsimple.Audio;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.microvirt.cjwsimple.R;
 
-public class ApiActivity extends AppCompatActivity {
+public class AudioTrackActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_api);
-
+        setContentView(R.layout.activity_audio_track);
     }
 }

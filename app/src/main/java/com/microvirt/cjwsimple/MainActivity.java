@@ -44,13 +44,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        list = new ArrayList<>();
-        adapter = new MainRVAdapter(list, this);
-        main_rv = (RecyclerView) findViewById(R.id.main_rv);
-        main_rv.setLayoutManager(new LinearLayoutManager(this));
-        main_rv.setAdapter(adapter);
-
-        initData();
+//        list = new ArrayList<>();
+//        adapter = new MainRVAdapter(list, this);
+//        main_rv = (RecyclerView) findViewById(R.id.main_rv);
+//        main_rv.setLayoutManager(new LinearLayoutManager(this));
+//        main_rv.setAdapter(adapter);
+//
+//        initData();
+//        ActivityThreadHookHelper.doActivityStartHook(this);
         startActivity(new Intent(this, HandlerActivity.class));
     }
 
