@@ -1,4 +1,4 @@
-package com.microvirt.cjwsimple;
+package com.microvirt.cjwsimple.hook;
 
 import android.app.Activity;
 import android.app.Instrumentation;

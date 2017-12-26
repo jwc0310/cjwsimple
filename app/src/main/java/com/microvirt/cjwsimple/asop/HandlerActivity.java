@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.microvirt.cjwsimple.ActivityThreadHookHelper;
 import com.microvirt.cjwsimple.R;
 
 public class HandlerActivity extends AppCompatActivity {

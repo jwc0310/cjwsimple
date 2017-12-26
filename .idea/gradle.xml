@@ -10,6 +10,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/designpatterns" />
+            <option value="$PROJECT_DIR$/okhttp34" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
