@@ -1,5 +1,6 @@
 package com.microvirt.cjwsimple.asop;
 
+import android.app.Activity;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PermissionGroupInfo;
@@ -11,7 +12,7 @@ import com.microvirt.cjwsimple.R;
 
 import java.util.List;
 
-public class ApiActivity extends AppCompatActivity {
+public class ApiActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +23,7 @@ public class ApiActivity extends AppCompatActivity {
         List<PermissionGroupInfo> list = packageManager.getAllPermissionGroups(PackageManager.GET_META_DATA);
         if (list != null) {
             for (PermissionGroupInfo permissionGroupInfo : list) {
-                Log.e("Andy", permissionGroupInfo.toString());
+                //Log.e("Andy", permissionGroupInfo.toString());
             }
         }
 

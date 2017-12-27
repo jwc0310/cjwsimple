@@ -1,13 +1,11 @@
 package com.microvirt.cjwsimple;
 
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
-import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.microvirt.cjwsimple.asop.ApiActivity;
 import com.microvirt.cjwsimple.utils.DeviceInfo;
 
 import java.io.File;
@@ -32,9 +31,9 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     // Used to load the 'native-lib' library on application startup.
-    static {
-        System.loadLibrary("native-lib");
-    }
+//    static {
+//        System.loadLibrary("native-lib");
+//    }
 
     private RecyclerView main_rv;
     private List<Class> list;
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Handler handler = new Handler() {
         @Override
-        public void handleMessage(Message msg){
+        public void handleMessage(Message msg) {
 
         }
     };
@@ -63,10 +62,25 @@ public class MainActivity extends AppCompatActivity {
         //mSensorManager.unregisterListener(eventListener);
     }
 
+    private void startActivitySafely(Class dstClass) {
+        try {
+            Intent intent = new Intent(this, dstClass);
+            startActivity(intent);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        findViewById(R.id.jump1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivitySafely(ApiActivity.class);
+            }
+        });
 
 
         LinearLayout rootLayout = (LinearLayout) findViewById(R.id.rootLayout);
@@ -146,10 +160,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void initData() {
         File file = new File(".");
-        Log.e("Andy", file.getName()+", absolute path:"+file.getAbsolutePath());
-        if (file.isDirectory()){
-            for (File tmp : file.listFiles()){
-                if (tmp.getName().endsWith("Activity")){
+        Log.e("Andy", file.getName() + ", absolute path:" + file.getAbsolutePath());
+        if (file.isDirectory()) {
+            for (File tmp : file.listFiles()) {
+                if (tmp.getName().endsWith("Activity")) {
                     list.add(tmp.getClass());
                 }
             }
@@ -163,15 +177,16 @@ public class MainActivity extends AppCompatActivity {
      */
     public native String stringFromJNI();
 
-    private static class MainRVViewHolder extends RecyclerView.ViewHolder{
+    private static class MainRVViewHolder extends RecyclerView.ViewHolder {
         private TextView item_main;
+
         public MainRVViewHolder(View itemView) {
             super(itemView);
             item_main = (TextView) itemView.findViewById(R.id.main_rv_item);
         }
     }
 
-    private static class MainRVAdapter extends RecyclerView.Adapter<MainRVViewHolder>{
+    private static class MainRVAdapter extends RecyclerView.Adapter<MainRVViewHolder> {
 
         private LayoutInflater inflater;
         private List<Class> list;

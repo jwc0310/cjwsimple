@@ -21,7 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".asop.ApiActivity" />
+        <!--<activity android:name=".asop.ApiActivity" />-->
         <activity android:name=".asop.HandlerActivity" />
         <activity android:name=".Audio.AudioTrackActivity">
 
