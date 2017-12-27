@@ -21,7 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity android:name=".asop.ApiActivity" />-->
+        <!-- <activity android:name=".asop.ApiActivity" /> -->
         <activity android:name=".asop.HandlerActivity" />
         <activity android:name=".Audio.AudioTrackActivity">
 
@@ -35,12 +35,15 @@
         <activity android:name=".binder.TestBinderActivity" />
         <activity android:name=".okhttp.OkhttpActivity" />
         <activity android:name=".hotfix.AliHotFixActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
+        <activity android:name=".classloader.ClassLoaderActivity"></activity>
     </application>
 
 </manifest>

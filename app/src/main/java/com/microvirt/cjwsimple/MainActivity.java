@@ -18,7 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.microvirt.cjwsimple.asop.ApiActivity;
+import com.microvirt.cjwsimple.classloader.ClassLoaderActivity;
 import com.microvirt.cjwsimple.utils.DeviceInfo;
 
 import java.io.File;
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             Intent intent = new Intent(this, dstClass);
             startActivity(intent);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.jump1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivitySafely(ApiActivity.class);
+                startActivitySafely(ClassLoaderActivity.class);
             }
         });
 
