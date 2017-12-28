@@ -18,7 +18,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.microvirt.cjwsimple.asop.BatteryActivity;
 import com.microvirt.cjwsimple.classloader.ClassLoaderActivity;
+import com.microvirt.cjwsimple.jni.MyJni;
 import com.microvirt.cjwsimple.utils.DeviceInfo;
 
 import java.io.File;
@@ -30,10 +32,14 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    // Used to load the 'native-lib' library on application startup.
-//    static {
-//        System.loadLibrary("native-lib");
-//    }
+    private void startActivitySafely(Class dstClass) {
+        try {
+            Intent intent = new Intent(this, dstClass);
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     private RecyclerView main_rv;
     private List<Class> list;
@@ -62,15 +68,6 @@ public class MainActivity extends AppCompatActivity {
         //mSensorManager.unregisterListener(eventListener);
     }
 
-    private void startActivitySafely(Class dstClass) {
-        try {
-            Intent intent = new Intent(this, dstClass);
-            startActivity(intent);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,9 +75,11 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.jump1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivitySafely(ClassLoaderActivity.class);
+                startActivitySafely(BatteryActivity.class);
             }
         });
+
+        Log.e("Andy", new MyJni().stringFromJNI());
 
 
         LinearLayout rootLayout = (LinearLayout) findViewById(R.id.rootLayout);
@@ -175,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
      * A native method that is implemented by the 'native-lib' native library,
      * which is packaged with this application.
      */
-    public native String stringFromJNI();
+//    public native String stringFromJNI();
 
     private static class MainRVViewHolder extends RecyclerView.ViewHolder {
         private TextView item_main;

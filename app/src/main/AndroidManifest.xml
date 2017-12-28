@@ -43,7 +43,8 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".classloader.ClassLoaderActivity"></activity>
+        <activity android:name=".classloader.ClassLoaderActivity" />
+        <activity android:name=".asop.BatteryActivity"></activity>
     </application>
 
 </manifest>
