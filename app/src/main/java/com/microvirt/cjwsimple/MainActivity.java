@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,8 +19,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.microvirt.cjwsimple.asop.BatteryActivity;
-import com.microvirt.cjwsimple.classloader.ClassLoaderActivity;
+import com.microvirt.cjwsimple.asop.SensorActivity;
+import com.microvirt.cjwsimple.detectEmulator.DetectorEmulator;
 import com.microvirt.cjwsimple.jni.MyJni;
 import com.microvirt.cjwsimple.utils.DeviceInfo;
 
@@ -41,31 +42,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private RecyclerView main_rv;
-    private List<Class> list;
-    private MainRVAdapter adapter;
-
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-
-        }
-    };
-
-    private SensorEventListener eventListener;
-    private Sensor mSensor;
-    private SensorManager mSensorManager;
-
     @Override
     public void onResume() {
         super.onResume();
-        //mSensorManager.registerListener(eventListener, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        //mSensorManager.unregisterListener(eventListener);
     }
 
     @Override
@@ -75,11 +59,12 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.jump1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivitySafely(BatteryActivity.class);
+                startActivitySafely(DetectorEmulator.class);
             }
         });
 
         Log.e("Andy", new MyJni().stringFromJNI());
+        Log.e("Andy", Build.MODEL);
 
 
         LinearLayout rootLayout = (LinearLayout) findViewById(R.id.rootLayout);
@@ -95,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 return (o1.getKey()).compareTo(o2.getKey());
             }
         });
+
         for (int i = 0; i < infoIds2.size(); i++) {
             Map.Entry<String, String> stringStringEntry = infoIds2.get(i);
             String key = stringStringEntry.getKey();
@@ -106,68 +92,6 @@ public class MainActivity extends AppCompatActivity {
             textView.setLayoutParams(layoutParams);
             rootLayout.addView(textView);
         }
-//
-//
-//        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-//        List<Sensor> sensorList = mSensorManager.getSensorList(Sensor.TYPE_ALL);
-////        for (Sensor sensor : sensorList){
-////            Log.e("Andy", sensor.toString());
-////        }
-//
-//        mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-//        eventListener = new SensorEventListener() {
-//
-//            @Override
-//            public void onSensorChanged(SensorEvent event) {
-//                float[] values = event.values;
-//                //Log.e("Andy", event.sensor.getName()+", "+values[0]+", "+values[1]+", "+values[2]);
-//            }
-//
-//            @Override
-//            public void onAccuracyChanged(Sensor sensor, int accuracy) {
-//                //Log.e("Andy", sensor.getName()+" "+accuracy);
-//            }
-//        };
-//
-//
-//        File dataDir = Environment.getDataDirectory();
-//        Log.e("Andy", "dataDir = " + dataDir.getAbsolutePath());
-//        File externalStorageDirectory = Environment.getExternalStorageDirectory();
-//        Log.e("Andy", "externalStorageDirectory = " + externalStorageDirectory.getAbsolutePath());
-//
-//        File rootDir = Environment.getRootDirectory();
-//        Log.e("Andy", "rootDir = " + rootDir.getAbsolutePath());
-//
-//        File downloadCacheDirectory = Environment.getDownloadCacheDirectory();
-//        Log.e("Andy", "downloadCacheDirectory = " + downloadCacheDirectory.getAbsolutePath());
-//
-//        Log.e("Andy", Build.VERSION.SDK+" "+Build.VERSION.RELEASE);
-//
-
-//        list = new ArrayList<>();
-//        adapter = new MainRVAdapter(list, this);
-//        main_rv = (RecyclerView) findViewById(R.id.main_rv);
-//        main_rv.setLayoutManager(new LinearLayoutManager(this));
-//        main_rv.setAdapter(adapter);
-//
-//        initData();
-//        ActivityThreadHookHelper.doActivityStartHook(this);
-//        startActivity(new Intent(this, HandlerActivity.class));
-
-
-    }
-
-    private void initData() {
-        File file = new File(".");
-        Log.e("Andy", file.getName() + ", absolute path:" + file.getAbsolutePath());
-        if (file.isDirectory()) {
-            for (File tmp : file.listFiles()) {
-                if (tmp.getName().endsWith("Activity")) {
-                    list.add(tmp.getClass());
-                }
-            }
-        }
-        adapter.notifyDataSetChanged();
     }
 
     /**

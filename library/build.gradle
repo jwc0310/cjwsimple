@@ -1,0 +1,25 @@
+apply plugin: 'com.android.library'
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+android {
+    compileSdkVersion 25
+
+    defaultConfig {
+        minSdkVersion 8
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.4.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+}
+
+dependencies {
+    provided 'com.android.support:support-v4:25.3.1'
+}
