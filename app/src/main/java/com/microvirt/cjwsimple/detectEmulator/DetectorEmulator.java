@@ -1,6 +1,9 @@
 package com.microvirt.cjwsimple.detectEmulator;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -9,6 +12,11 @@ import com.framgia.android.emulator.EmulatorDetector;
 import com.microvirt.cjwsimple.BaseAndPermissionsActivity;
 import com.microvirt.cjwsimple.BuildConfig;
 import com.microvirt.cjwsimple.R;
+
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.List;
 
 public class DetectorEmulator extends BaseAndPermissionsActivity {
 
@@ -22,6 +30,32 @@ public class DetectorEmulator extends BaseAndPermissionsActivity {
         textView = (TextView) findViewById(R.id.text);
         textView.setText("Checking....");
 
+        PackageManager pm = getPackageManager();
+        List<PackageInfo> packageInfos = pm.getInstalledPackages(PackageManager.COMPONENT_ENABLED_STATE_DEFAULT);
+        for (PackageInfo info : packageInfos)
+            Log.e("Andyccc", info.packageName);
+        Context context = this;
+        File file = new File("/proc/self/cmdline", "r");
+        if (file.exists()) {
+            Log.e("Andyproc", file.getAbsolutePath());
+        } else {
+            Log.e("Andyproc", "not exists");
+        }
+
+
+        Class c1 = Context.class;
+        try {
+            Method m1 = c1.getClass().getDeclaredMethod("getUserId");
+            try {
+                Log.e("Andy", "adfsd " + m1.invoke(c1));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
         // Last check
         // BlueStacksPlayer
         // NoxPlayer

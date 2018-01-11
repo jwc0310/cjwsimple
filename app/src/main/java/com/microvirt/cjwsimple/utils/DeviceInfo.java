@@ -456,7 +456,8 @@ public class DeviceInfo {
     }
 
     public void getUdid() {
-        String str = Settings.Secure.getString(this.ctx.getContentResolver(), "android_id");
-        this.info.put("udid", str);
+        String str = Settings.Secure.getString(this.ctx.getContentResolver(), Settings.Secure.ANDROID_ID);
+        if (str != null)
+            this.info.put("udid", str);
     }
 }

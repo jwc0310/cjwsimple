@@ -23,7 +23,7 @@
         </activity>
         <!-- <activity android:name=".asop.ApiActivity" /> -->
         <activity android:name=".asop.HandlerActivity" />
-        <activity android:name=".detectEmulator.DetectorEmulator"/>
+        <activity android:name=".detectEmulator.DetectorEmulator" />
         <activity android:name=".Audio.AudioTrackActivity">
 
             <!-- <intent-filter> -->
@@ -46,7 +46,9 @@
         </activity>
         <activity android:name=".classloader.ClassLoaderActivity" />
         <activity android:name=".asop.BatteryActivity" />
-        <activity android:name=".asop.SensorActivity"></activity>
+        <activity android:name=".asop.SensorActivity" />
+        <activity android:name=".asop.GetpropActivity" />
+        <activity android:name=".asop.TelephonyActivity"></activity>
     </application>
 
 </manifest>

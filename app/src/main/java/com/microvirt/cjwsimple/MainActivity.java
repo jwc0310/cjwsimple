@@ -19,7 +19,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.microvirt.cjwsimple.asop.GetpropActivity;
 import com.microvirt.cjwsimple.asop.SensorActivity;
+import com.microvirt.cjwsimple.asop.TelephonyActivity;
 import com.microvirt.cjwsimple.detectEmulator.DetectorEmulator;
 import com.microvirt.cjwsimple.jni.MyJni;
 import com.microvirt.cjwsimple.utils.DeviceInfo;
@@ -59,13 +61,12 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.jump1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivitySafely(DetectorEmulator.class);
+                startActivitySafely(TelephonyActivity.class);
             }
         });
 
         Log.e("Andy", new MyJni().stringFromJNI());
         Log.e("Andy", Build.MODEL);
-
 
         LinearLayout rootLayout = (LinearLayout) findViewById(R.id.rootLayout);
         DeviceInfo deviceInfo = new DeviceInfo(getApplicationContext());
