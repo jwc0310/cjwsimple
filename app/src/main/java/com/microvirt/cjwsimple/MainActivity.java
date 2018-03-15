@@ -1,14 +1,12 @@
 package com.microvirt.cjwsimple;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.Context;
 import android.content.Intent;
-import android.hardware.Sensor;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
-import android.os.Build;
+import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,21 +17,38 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.microvirt.cjwsimple.ads.AdInfo;
+import com.microvirt.cjwsimple.ads.AdvertisingIdClient;
 import com.microvirt.cjwsimple.asop.GetpropActivity;
-import com.microvirt.cjwsimple.asop.SensorActivity;
 import com.microvirt.cjwsimple.asop.TelephonyActivity;
-import com.microvirt.cjwsimple.detectEmulator.DetectorEmulator;
-import com.microvirt.cjwsimple.jni.MyJni;
 import com.microvirt.cjwsimple.utils.DeviceInfo;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static AdInfo adInfo;
+
+    private void initGaid() {
+
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    adInfo = AdvertisingIdClient
+                            .getAdvertisingIdInfo(MainActivity.this);
+                    Log.e("Andy-gaid", "adinfo id: "+adInfo.getId());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
 
     private void startActivitySafely(Class dstClass) {
         try {
@@ -58,15 +73,57 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final AccountManager accountManager = (AccountManager)getSystemService(ACCOUNT_SERVICE);
+        Account[] accounts = accountManager.getAccounts();
+
+
+        UsbManager usbManager = (UsbManager) getSystemService(USB_SERVICE);
+        HashMap<String, UsbDevice> deviceList  = usbManager.getDeviceList();
+
+        Set<String> sets = deviceList.keySet();
+        for (String str : sets) {
+            UsbDevice usbDevice = deviceList.get(str);
+            Log.e("Andy", usbDevice.toString());
+        }
+
+        initGaid();
         findViewById(R.id.jump1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivitySafely(TelephonyActivity.class);
+
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        try {
+//                            String id = AdvertisingIdClient.resetGaid(MainActivity.this);
+//                            Log.e("Andy", "gaid = "+id);
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }).start();
             }
         });
 
-        Log.e("Andy", new MyJni().stringFromJNI());
-        Log.e("Andy", Build.MODEL);
+        findViewById(R.id.jump2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                startActivitySafely(InputMethodActivity.class);
+                Account[] accounts1 = accountManager.getAccounts();
+                for (Account account1 : accounts1) {
+                    accountManager.removeAccount(account1, null, null);
+                }
+            }
+        });
+
+        findViewById(R.id.jump3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivitySafely(GetpropActivity.class);
+            }
+        });
 
         LinearLayout rootLayout = (LinearLayout) findViewById(R.id.rootLayout);
         DeviceInfo deviceInfo = new DeviceInfo(getApplicationContext());
@@ -87,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
             String key = stringStringEntry.getKey();
             String value = stringStringEntry.getValue();
             TextView textView = new TextView(getApplicationContext());
-            Log.e("ybshuai", "key = " + key + " value = " + value);
             textView.setText(key + " : " + value);
             textView.setTextColor(0xff000000);
             textView.setLayoutParams(layoutParams);

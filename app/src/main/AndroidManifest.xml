@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:name=".CjwApplication"
@@ -24,7 +27,7 @@
         <!-- <activity android:name=".asop.ApiActivity" /> -->
         <activity android:name=".asop.HandlerActivity" />
         <activity android:name=".detectEmulator.DetectorEmulator" />
-        <activity android:name=".Audio.AudioTrackActivity">
+        <activity android:name=".av.AVActivity">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -48,7 +51,9 @@
         <activity android:name=".asop.BatteryActivity" />
         <activity android:name=".asop.SensorActivity" />
         <activity android:name=".asop.GetpropActivity" />
-        <activity android:name=".asop.TelephonyActivity"></activity>
+        <activity android:name=".asop.TelephonyActivity" />
+        <activity android:name=".classloader.plugin.TestActivity" />
+        <activity android:name=".asop.InputMethodActivity"></activity>
     </application>
 
 </manifest>
