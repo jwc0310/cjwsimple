@@ -30,7 +30,7 @@ public class BaseAndPermissionsActivity extends FragmentActivity {
      * @param permissions 请求的权限
      * @param requestCode 请求权限的请求码
      */
-    public void requestPermission(String[] permissions, int requestCode) {
+    public void requestPermission(List<String> permissions, int requestCode) {
         this.REQUEST_CODE_PERMISSION = requestCode;
         if (checkPermissions(permissions)) {
             permissionSuccess(REQUEST_CODE_PERMISSION);
@@ -46,7 +46,7 @@ public class BaseAndPermissionsActivity extends FragmentActivity {
      * @param permissions
      * @return
      */
-    private boolean checkPermissions(String[] permissions) {
+    private boolean checkPermissions(List<String> permissions) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
         }
@@ -66,7 +66,7 @@ public class BaseAndPermissionsActivity extends FragmentActivity {
      * @param permissions
      * @return
      */
-    private List<String> getDeniedPermissions(String[] permissions) {
+    private List<String> getDeniedPermissions(List<String> permissions) {
         List<String> needRequestPermissionList = new ArrayList<>();
         for (String permission : permissions) {
             if (ContextCompat.checkSelfPermission(this, permission) !=

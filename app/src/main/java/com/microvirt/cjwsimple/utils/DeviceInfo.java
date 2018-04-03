@@ -146,6 +146,8 @@ public class DeviceInfo {
                 this.info.put("screen_width", String.valueOf(i));
                 this.info.put("screen_height", String.valueOf(j));
                 this.info.put("with_sd_card", "false");
+                this.info.put("xdpi", ""+((DisplayMetrics) localObject1).xdpi);
+                this.info.put("ydpi", ""+((DisplayMetrics) localObject1).ydpi);
                 return true;
             }
             Object localObject2 = (String) localIterator.next();

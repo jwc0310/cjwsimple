@@ -23,6 +23,7 @@ import com.microvirt.cjwsimple.asop.GetpropActivity;
 import com.microvirt.cjwsimple.asop.TelephonyActivity;
 import com.microvirt.cjwsimple.utils.DeviceInfo;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -33,30 +34,21 @@ import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static AdInfo adInfo;
-
-    private void initGaid() {
-
-        new Thread(new Runnable() {
-            public void run() {
-                try {
-                    adInfo = AdvertisingIdClient
-                            .getAdvertisingIdInfo(MainActivity.this);
-                    Log.e("Andy-gaid", "adinfo id: "+adInfo.getId());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-    }
-
-    private void startActivitySafely(Class dstClass) {
+    private void checkFileExit(String fileOrDir) {
         try {
-            Intent intent = new Intent(this, dstClass);
-            startActivity(intent);
+            File tmpFile = new File(fileOrDir);
+            if (tmpFile.exists())
+                Log.e("Andy-File", fileOrDir + " is exist");
+            else
+                Log.e("Andy-File", fileOrDir + " is not exist");
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void init() {
+        checkFileExit("/sdcard");
+        checkFileExit("/sdcard/Download");
     }
 
     @Override
@@ -74,12 +66,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final AccountManager accountManager = (AccountManager)getSystemService(ACCOUNT_SERVICE);
+        init();
+
+        final AccountManager accountManager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
         Account[] accounts = accountManager.getAccounts();
 
 
         UsbManager usbManager = (UsbManager) getSystemService(USB_SERVICE);
-        HashMap<String, UsbDevice> deviceList  = usbManager.getDeviceList();
+        HashMap<String, UsbDevice> deviceList = usbManager.getDeviceList();
 
         Set<String> sets = deviceList.keySet();
         for (String str : sets) {
@@ -198,6 +192,33 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getItemCount() {
             return list.size();
+        }
+    }
+
+
+    public static AdInfo adInfo;
+
+    private void initGaid() {
+
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    adInfo = AdvertisingIdClient
+                            .getAdvertisingIdInfo(MainActivity.this);
+                    Log.e("Andy-gaid", "adinfo id: " + adInfo.getId());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    private void startActivitySafely(Class dstClass) {
+        try {
+            Intent intent = new Intent(this, dstClass);
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

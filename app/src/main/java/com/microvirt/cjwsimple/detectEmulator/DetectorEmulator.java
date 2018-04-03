@@ -16,6 +16,7 @@ import com.microvirt.cjwsimple.R;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DetectorEmulator extends BaseAndPermissionsActivity {
@@ -63,10 +64,12 @@ public class DetectorEmulator extends BaseAndPermissionsActivity {
         // MEmu
     }
 
+    List<String> permissions = new ArrayList<>();
     @Override
     public void onResume() {
         super.onResume();
-        requestPermission(new String[] {Manifest.permission.READ_PHONE_STATE}, 0x0001);
+        permissions.add(Manifest.permission.READ_PHONE_STATE);
+        requestPermission(permissions, 0x0001);
     }
 
     @Override
