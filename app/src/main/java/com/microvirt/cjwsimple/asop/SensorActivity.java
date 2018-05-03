@@ -34,8 +34,6 @@ public class SensorActivity extends AppCompatActivity {
             stringBuilder.append("\n");
         }
         textView.setText(stringBuilder.toString());
-
-
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         g_sensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         mSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);

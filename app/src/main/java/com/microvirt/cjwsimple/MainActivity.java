@@ -49,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
     private void init() {
         checkFileExit("/sdcard");
         checkFileExit("/sdcard/Download");
+        checkFileExit("/data");
+        checkFileExit("/data/data");
+        checkFileExit("/data/data/com.microvirt.market");
     }
 
     @Override
