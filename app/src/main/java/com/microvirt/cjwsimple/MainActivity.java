@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -19,8 +20,11 @@ import android.widget.Toast;
 
 import com.microvirt.cjwsimple.ads.AdInfo;
 import com.microvirt.cjwsimple.ads.AdvertisingIdClient;
+import com.microvirt.cjwsimple.androidInfo.AndroidInfoActivity;
 import com.microvirt.cjwsimple.asop.GetpropActivity;
 import com.microvirt.cjwsimple.asop.TelephonyActivity;
+import com.microvirt.cjwsimple.base.Services;
+import com.microvirt.cjwsimple.detectEmulator.DetectorEmulator;
 import com.microvirt.cjwsimple.utils.DeviceInfo;
 
 import java.io.File;
@@ -31,6 +35,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import io.github.dmitrikudrenko.emulatordetector.Callback;
+import io.github.dmitrikudrenko.emulatordetector.EmulatorDetector;
+import io.github.dmitrikudrenko.emulatordetector.accelerometer.AccelerometerDetector;
+import io.github.dmitrikudrenko.emulatordetector.gyroscope.GyroscopeDetector;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -74,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
         final AccountManager accountManager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
         Account[] accounts = accountManager.getAccounts();
 
-
         UsbManager usbManager = (UsbManager) getSystemService(USB_SERVICE);
         HashMap<String, UsbDevice> deviceList = usbManager.getDeviceList();
 
@@ -89,21 +97,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivitySafely(TelephonyActivity.class);
-
-//                new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        try {
-//                            String id = AdvertisingIdClient.resetGaid(MainActivity.this);
-//                            Log.e("Andy", "gaid = "+id);
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }).start();
             }
         });
 
+        findViewById(R.id.jump4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initVibrator();
+            }
+        });
         findViewById(R.id.jump2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,7 +120,9 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.jump3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivitySafely(GetpropActivity.class);
+                //startActivitySafely(GetpropActivity.class);
+                startActivitySafely(DetectorEmulator.class);
+
             }
         });
 
@@ -146,6 +150,75 @@ public class MainActivity extends AppCompatActivity {
             textView.setLayoutParams(layoutParams);
             rootLayout.addView(textView);
         }
+
+
+        AccelerometerDetector accelerometerDetector = AccelerometerDetector.builder()
+                .setDelay(500)
+                .setEventCount(5)
+                //check continues 500*5 = 2500ms
+                .build();
+
+        GyroscopeDetector gyroscopeDetector = GyroscopeDetector.builder()
+                .setDelay(500)
+                .setEventCount(5)
+                .build();
+        EmulatorDetector emulatorDetector = new EmulatorDetector(accelerometerDetector, gyroscopeDetector);
+        emulatorDetector.detect(this, new Callback() {
+            @Override
+            public void onDetect(boolean isEmulator) {
+                Log.e("Andy-emulator", isEmulator ? "is emulator" : "is not emulator");
+            }
+
+            @Override
+            public void onError(Exception exception) {
+                Log.e("onError", exception.getMessage(), exception);
+            }
+        });
+
+        buildInfo();
+    }
+
+    private void buildInfo() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Build.product :");
+        stringBuilder.append(Build.PRODUCT);
+        stringBuilder.append("\n");
+
+        stringBuilder.append("Build.MANUFACTURER :");
+        stringBuilder.append(Build.MANUFACTURER);
+        stringBuilder.append("\n");
+
+        stringBuilder.append("Build.BRAND :");
+        stringBuilder.append(Build.BRAND);
+        stringBuilder.append("\n");
+
+        stringBuilder.append("Build.DEVICE :");
+        stringBuilder.append(Build.DEVICE);
+        stringBuilder.append("\n");
+
+        stringBuilder.append("Build.MODEL :");
+        stringBuilder.append(Build.MODEL);
+        stringBuilder.append("\n");
+
+        stringBuilder.append("Build.Hardware :");
+        stringBuilder.append(Build.HARDWARE);
+        stringBuilder.append("\n");
+
+        stringBuilder.append("Build.fingerprint :");
+        stringBuilder.append(Build.FINGERPRINT);
+        stringBuilder.append("\n");
+
+        stringBuilder.append("Build.serial :");
+        stringBuilder.append(Build.SERIAL);
+        stringBuilder.append("\n");
+
+        Log.e("Andy", stringBuilder.toString());
+    }
+
+    private void initVibrator() {
+        Services.VibratorService(this);
+        startActivitySafely(AndroidInfoActivity.class);
+
     }
 
     /**

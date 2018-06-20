@@ -20,8 +20,8 @@ public class CjwApplication extends Application {
         //ActivityThreadHookHelper.doContextStartHook();
         HookUtil hookUtil = new HookUtil(HandlerActivity.class, this);
 //        hookUtil.handleSystemHandler();
-//        hookUtil.hookAms();
-//        hookUtil.handleBuildinfo();
-        hookUtil.handleOpenGLInfo();
+        hookUtil.hookAms();
+        //hookUtil.handleBuildinfo();
+        //hookUtil.handleOpenGLInfo();
     }
 }

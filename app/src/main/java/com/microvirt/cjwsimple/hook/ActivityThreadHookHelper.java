@@ -32,8 +32,7 @@ public class ActivityThreadHookHelper {
             e.printStackTrace();
         }
     }
-
-
+    
     public static void doActivityStartHook(Activity activity) {
         try {
             Field mInstrumentationField = Activity.class.getDeclaredField("mInstrumentation");

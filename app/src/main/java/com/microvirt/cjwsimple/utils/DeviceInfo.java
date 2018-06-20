@@ -109,6 +109,11 @@ public class DeviceInfo {
     private boolean getDeviceBasicInfo() {
         this.info.put("model", Build.MODEL);
         this.info.put("brand", Build.BRAND);
+        Log.e("Andy666", Build.BOARD);
+        Log.e("Andy666", Build.PRODUCT);
+        Log.e("Andy666", String.valueOf(VERSION.SDK_INT));
+
+
         this.info.put("mfr", Build.MANUFACTURER);
         this.info.put("board", Build.BOARD);
         this.info.put("CPU_ABI", Build.CPU_ABI);

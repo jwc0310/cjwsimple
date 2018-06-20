@@ -1,7 +1,10 @@
 package com.microvirt.cjwsimple.hook;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Handler;
+
+import com.microvirt.cjwsimple.classloader.ClassLoaderActivity;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -53,6 +56,14 @@ public class HookUtil {
     }
 
     public void handleOpenGLInfo() {
+        try {
+            Class<?> systemPropertiesClass = Class.forName("android.os.Build");
+            Field board = systemPropertiesClass.getDeclaredField("ID");
+            board.setAccessible(true);
+            board.set(systemPropertiesClass, "Andy888");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -61,7 +72,7 @@ public class HookUtil {
             Class<?> systemPropertiesClass = Class.forName("android.os.Build");
             Field board = systemPropertiesClass.getDeclaredField("BOARD");
             board.setAccessible(true);
-            board.set(systemPropertiesClass, "Andy's board");
+            board.set(systemPropertiesClass, "Andy666");
             /*
             Method method = systemPropertiesClass.getMethod(systemPropertiesClass.getName(), String.class, String.class);
             MyBuildInfoHandler handler = new MyBuildInfoHandler(systemPropertiesClass);
@@ -70,6 +81,9 @@ public class HookUtil {
             Object proxy = Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class<?>[]{systemPropertiesClass}, handler);
             method.invoke(systemPropertiesClass, proxy);
             */
+            Field product = systemPropertiesClass.getDeclaredField("PRODUCT");
+            product.setAccessible(true);
+            product.set(systemPropertiesClass, "Andy777");
 
         } catch (Exception e) {
             e.printStackTrace();

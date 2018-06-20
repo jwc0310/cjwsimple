@@ -1,8 +1,5 @@
 package com.microvirt.cjwsimple.av;
 
-import android.hardware.usb.UsbManager;
-import android.media.MediaPlayer;
-import android.os.BatteryManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 

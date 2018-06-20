@@ -29,6 +29,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Getprop"/>
+
+            <Button
+                android:id="@+id/jump4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Service"/>
         </LinearLayout>
 
         <LinearLayout
