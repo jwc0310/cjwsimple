@@ -1,4 +1,4 @@
-package com.microvirt.cjwsimple;
+package com.andy.cjwsimple;
 
 import org.junit.Test;
 

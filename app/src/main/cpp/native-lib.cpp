@@ -3,7 +3,7 @@
 
 extern "C"
 JNIEXPORT jstring JNICALL
-Java_com_microvirt_cjwsimple_jni_MyJni_stringFromJNI(
+Java_com_andy_cjwsimple_jni_MyJni_stringFromJNI(
         JNIEnv *env,
         jobject /* this */) {
     std::string hello = "Hello from C++";

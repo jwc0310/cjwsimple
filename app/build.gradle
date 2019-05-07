@@ -7,7 +7,7 @@ tasks.withType(JavaCompile) {
 android {
     compileSdkVersion 25
     defaultConfig {
-        applicationId "com.microvirt.cjwsimple"
+        applicationId "com.andy.cjwsimple"
         minSdkVersion 17
         targetSdkVersion 25
         versionCode 1

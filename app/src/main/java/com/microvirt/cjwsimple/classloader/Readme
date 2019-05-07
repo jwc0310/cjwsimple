@@ -1,4 +1,0 @@
-DexClassLoader和PathClassLoader
-DexClassLoader多传了一个optimizedDirectory参数，
-这个目录必须是内部存储路径，用来缓存系统创建的Dex文件。
-PathClassLoader该参数为null，只能加载内部存储目录的Dex文件
