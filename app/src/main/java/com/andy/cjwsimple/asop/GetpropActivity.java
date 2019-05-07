@@ -23,7 +23,7 @@ public class GetpropActivity extends BaseAndPermissionsActivity {
         getBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String text = Property.getHostMacProp();
+                String text = "";
                 showTv.setText(text);
             }
         });
