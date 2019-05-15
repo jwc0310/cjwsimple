@@ -13,7 +13,7 @@ import android.webkit.WebViewClient;
 public class XYWebActivity extends Activity {
 
     private WebView mWebView;
-    private String activityUrl = "http://www.xyaz.cn/";
+    private String activityUrl = "http://www.baidu.com/";
 
 
     @Override
