@@ -9,6 +9,7 @@ import android.util.Log;
  */
 
 public class Services {
+    private static final String TAG = "Services";
 
     /**
      * 根据震动服务理解android 系统服务工作流程
@@ -19,12 +20,12 @@ public class Services {
         Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
 
         if (vibrator.hasVibrator()) {
-            Log.e("Andy", "has vibrator ");
+            Log.e(TAG, "has vibrator ");
             long[] args = {1000, 2000, 3000, 4000};
             vibrator.vibrate(1000);
             vibrator.vibrate(args, 1);
         } else {
-            Log.e("Andy", "has no vibrator");
+            Log.e(TAG, "has no vibrator");
         }
 
     }

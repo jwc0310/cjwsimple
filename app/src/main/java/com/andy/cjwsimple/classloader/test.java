@@ -18,6 +18,7 @@ public class test {
         while (loader != null){
             System.out.println(loader.toString());
             loader = loader.getParent();
+            System.out.println(loader.toString());
         }
 
     }

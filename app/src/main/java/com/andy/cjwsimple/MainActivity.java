@@ -125,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /*
         LinearLayout rootLayout = (LinearLayout) findViewById(R.id.rootLayout);
         DeviceInfo deviceInfo = new DeviceInfo(getApplicationContext());
         Map<String, String> info = deviceInfo.collectDeviceInfo();
@@ -175,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         buildInfo();
+        */
     }
 
     private void buildInfo() {
