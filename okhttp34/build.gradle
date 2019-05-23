@@ -20,6 +20,6 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.squareup.okio:okio:1.7.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.squareup.okio:okio:1.14.0'
 }
