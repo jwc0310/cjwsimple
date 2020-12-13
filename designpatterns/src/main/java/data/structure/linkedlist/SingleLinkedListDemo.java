@@ -40,6 +40,16 @@ public class SingleLinkedListDemo {
             log(heroNode.toString());
         }
 
+        log("反转链表：");
+        //singleLinkedList.reverse(singleLinkedList.getHead());
+        log("    origin: ");
+        singleLinkedList.list(singleLinkedList.getHead());
+        log("    reverse: ");
+        singleLinkedList.list(singleLinkedList.getReverseHead());
+
+        log("    reverse2: ");
+        singleLinkedList.reverse2(singleLinkedList.getHead());
+        singleLinkedList.list();
     }
 
     private static void log(String str) {
@@ -54,7 +64,13 @@ class SingleLinkedList {
         return head;
     }
 
+    //获取reverse头节点
+    public HeroNode getReverseHead() {
+        return reverseHead;
+    }
+
     private HeroNode head = new HeroNode(0,"", "");
+    private HeroNode reverseHead = new HeroNode(0,"", "");
 
     // 添加到结尾
     // next指向新的节点
@@ -164,6 +180,20 @@ class SingleLinkedList {
         }
     }
 
+    public void list(HeroNode headNode) {
+        if (headNode.next == null) {
+            System.out.println("链表length = " + 0);
+            return;
+        }
+
+        System.out.println("链表length = " + getLength(headNode));
+        HeroNode temp = headNode.next;
+        while (temp != null) {   //指向头节点下一个的话 判断temp不为null
+            System.out.println(temp.toString());
+            temp = temp.next;
+        }
+    }
+
 
     /**
      * 查找单链表中倒数第k个节点 (新浪)
@@ -212,7 +242,50 @@ class SingleLinkedList {
     }
 
 
+    /**
+     * 1, 定义反向链表头节点 reverseHead
+     * 2， 遍历原来链表，并取出放到新链表的表头
+     * 3, reverseHead.next = 取出的节点
+     */
+    // 原链表不变  复制到新链表  数据反转
+    public void reverse(HeroNode head) {
+        if (head.next == null) {
+            System.out.println("原链表为 null");
+            return;
+        }
 
+        HeroNode temp = head.next;
+        HeroNode temp2;
+        while (temp != null) {
+            temp2 = new HeroNode(temp);
+            temp2.next = reverseHead.next;
+            reverseHead.next = temp2;
+            temp = temp.next;
+        }
+
+    }
+
+    // 反转链表本身  head 最后指向 reverseHead
+    public void reverse2(HeroNode head) {
+        // 链表为null 或者 仅有一个元素
+        if (head.next == null || head.next.next == null) {
+            System.out.println("原链表为 null");
+            return;
+        }
+
+        HeroNode temp;
+        while (head.next != null) {
+            temp = head.next;
+            head.next = temp.next; // 原链表中去掉
+
+            // 加入新链表
+            temp.next = reverseHead.next;
+            reverseHead.next = temp;
+        }
+
+        head.next = reverseHead.next;
+
+    }
 }
 
 // 定义HeroNode, 每个HeroNode对象就是一个节点
@@ -226,6 +299,12 @@ class HeroNode {
         this.no = no;
         this.name = name;
         this.nickname = nickname;
+    }
+
+    public HeroNode(HeroNode heroNode) {
+        this.no = heroNode.no;
+        this.name = heroNode.name;
+        this.nickname = heroNode.nickname;
     }
 
     @Override
