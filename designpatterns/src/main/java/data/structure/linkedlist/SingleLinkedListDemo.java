@@ -30,6 +30,16 @@ public class SingleLinkedListDemo {
         log("修改6：");
         singleLinkedList.update(new HeroNode(6, "666", "666-1"));
         singleLinkedList.list();
+
+
+        log("获取倒数第1个：");
+        HeroNode heroNode = singleLinkedList.findLastIndexNode(singleLinkedList.getHead(), 1);
+        if (heroNode == null) {
+            log("meiyou index");
+        } else {
+            log(heroNode.toString());
+        }
+
     }
 
     private static void log(String str) {
@@ -155,9 +165,34 @@ class SingleLinkedList {
     }
 
 
+    /**
+     * 查找单链表中倒数第k个节点 (新浪)
+     * 思路 1， head节点， index： 倒数index节点，
+     *      2， 正向  length - index  //正向序列
+     *      3, 找到返回该节点， 未找到null
+     */
+    public HeroNode findLastIndexNode(HeroNode heroNode, int index) {
+        if (heroNode.next == null)
+            return null;
+        int length = getLength(heroNode);
+        if (index <= 0 || index > length) {
+            return null;
+        }
+
+        HeroNode curr = heroNode.next;
+        for (int i = 0; i < length - index; i++) {
+            curr = curr.next;
+        }
+
+        return curr;
+    }
+
 
     // 获取单聊表有效节点的个数
     // 单链表有头节点 则去掉头节点
+    /**
+     * 获取链表的长度
+     */
     public int getLength(HeroNode head) {
         if (head.next == null) {
             return 0;
