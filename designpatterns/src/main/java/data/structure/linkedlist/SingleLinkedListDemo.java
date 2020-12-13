@@ -1,4 +1,7 @@
 package data.structure.linkedlist;
+
+import java.util.Stack;
+
 /**
  * author: Andy
  * 2020/12/10
@@ -39,6 +42,9 @@ public class SingleLinkedListDemo {
         } else {
             log(heroNode.toString());
         }
+
+        log("逆序打印：");
+        singleLinkedList.reverseList();
 
         log("反转链表：");
         //singleLinkedList.reverse(singleLinkedList.getHead());
@@ -191,6 +197,22 @@ class SingleLinkedList {
         while (temp != null) {   //指向头节点下一个的话 判断temp不为null
             System.out.println(temp.toString());
             temp = temp.next;
+        }
+    }
+
+
+    // 逆序打印
+    // 利用栈的方式 进行逆序打印
+    public void reverseList() {
+        Stack<HeroNode> heroNodeStack = new Stack<>();
+        HeroNode curr = head.next;
+        while (curr != null) {
+            heroNodeStack.push(curr);
+            curr = curr.next;  // 后移
+        }
+
+        while (heroNodeStack.size() > 0) {
+            System.out.println(heroNodeStack.pop());
         }
     }
 
