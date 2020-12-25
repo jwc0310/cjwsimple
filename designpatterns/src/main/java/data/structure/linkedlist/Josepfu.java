@@ -12,8 +12,6 @@ public class Josepfu {
         circleSimpleLinkedList.list();
         circleSimpleLinkedList.addBoy(10);
         circleSimpleLinkedList.list();
-
-
     }
 }
 
